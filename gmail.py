@@ -60,8 +60,16 @@ Best regards,
 The Trucking Story Team
 """
 
+
 def allocate_data_to_accounts(file_path, accounts):
-    # Read the Excel file
+    """
+    Given an Excel file and a list of accounts, read the Excel file and split its data into chunks.
+    Each chunk is then allocated to an account, and the function returns the updated list of accounts.
+
+    :param file_path: Path to the Excel file
+    :param accounts: List of dictionaries, where each dictionary has a key "list" that will be populated with data from the Excel file
+    :return: The list of accounts with data allocated to each one
+    """
     df = pd.read_excel(file_path)
 
     # Convert each row to a dictionary
@@ -109,9 +117,6 @@ for account in updated_accounts:
 
 def send_email_func(data_list, sender_email, password, smtp_server, port, subject_template, msg_template):
 	
-	# file_path = f"C:\\Users\\Abdullah Atif\\Desktop\\Email marketing tool - Trucking Story\\non-py files\\{file_name}"
-	# df = pd.read_excel(file_path)
-
 	with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
 		server.login(sender_email, password)
 
