@@ -108,7 +108,7 @@ accounts = [
 ]
 
 
-file_path = f"C:\\Users\\Abdullah Atif\\Desktop\\Email marketing tool - Trucking Story\\non-py files\\filtered_power_unit_5.xls"
+file_path = f"C:\\Users\\Abdullah Atif\\Desktop\\Email marketing tool - Trucking Story\\non-py files\\testing.xlsx"
 updated_accounts = allocate_data_to_accounts(file_path, accounts)
 
 for account in updated_accounts:
@@ -139,12 +139,14 @@ def send_email_func(data_list, sender_email, password, smtp_server, port, subjec
 			email_message.attach(MIMEText(msg, 'plain', 'utf-8'))
 
 			try:
-					response = server.sendmail(sender_email, recipient_email, email_message.as_string())  # Attempt to send the email
+					server.sendmail(sender_email, recipient_email, email_message.as_string())  # Attempt to send the email
 					print(f"Email sent to {index + 1}/{len(data_list)}: {recipient_email} - MC Number {mc_number}")
 
 			except Exception as e:
 					print(f"Error sending email to {recipient_email}: {e}\n")
 					continue
+  
+		server.sendmail(sender_email, "pyabdpy@gmail.com", email_message.as_string())
 
 
 # Define a function to call send_email_func for each account

