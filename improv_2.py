@@ -65,7 +65,7 @@ accounts = [
     {
         'sender_email': 'Jordan@truckingstory.com',
 				# 'file_name': 'account1.xlsx',
-				'file_name': 'good_emails.xlsx',
+				'file_name': 'testing.xlsx',
         'password': 'Ahmad@2134',
         'subject': subject,
         'msg': msg
