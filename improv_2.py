@@ -78,15 +78,27 @@ def send_email_func(file_name, sender_email, password, smtp_server, port, subjec
 	file_path = f"C:\\Users\\Abdullah Atif\\Desktop\\Email marketing tool - Trucking Story\\non-py files\\{file_name}"
 	df = pd.read_excel(file_path)
 
+	legal_name_col = 'LegalName' if 'LegalName' in df.columns else 'Legal Name'
+	mc_number_col = 'MCNumber' if 'MCNumber' in df.columns else 'MC Number'
+
 	with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
 		server.login(sender_email, password)
 
 		for index, row in df.iterrows():
-			mc_number = re.search(r'\d+', row['MCNumber']).group()
+			# mc_number = re.search(r'\d+', row[mc_number_col]).group()
 
-			# Format the subject and message with data from the Excel row
-			subject = subject_template.format(mc_number=mc_number, legal_name=row.get('LegalName', 'Valued Customer'))
-			msg = msg_template.format(mc_number=mc_number, legal_name=row.get('LegalName', 'Valued Customer'))
+			# # Format the subject and message with data from the Excel row
+			# subject = subject_template.format(mc_number=mc_number, legal_name=row.get(legal_name_col, 'Valued Customer'))
+			# msg = msg_template.format(mc_number=mc_number, legal_name=row.get(legal_name_col, 'Valued Customer'))
+
+			mc_number_value = row.get(mc_number_col, '')
+			match = re.search(r'\d+', str(mc_number_value))  # Ensure value is a string for regex
+			mc_number = match.group() if match else 'Unknown'
+			legal_name = row.get(legal_name_col, 'Valued Customer')
+
+			# Format the subject and message
+			subject = subject_template.format(mc_number=mc_number, legal_name=legal_name)
+			msg = msg_template.format(mc_number=mc_number, legal_name=legal_name)
 
 			email_message = MIMEMultipart()
 			email_message['From'] = sender_email
